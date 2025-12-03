@@ -1,5 +1,5 @@
 import React from 'react';
-import { signInWithPopup, signOut, User as FirebaseUser } from 'firebase/auth';
+import { signInWithPopup, signOut, type User as FirebaseUser } from 'firebase/auth';
 import { auth, googleProvider } from '../../services/firebase';
 import { User } from 'lucide-react';
 
@@ -9,6 +9,10 @@ interface LoginButtonProps {
 
 export const LoginButton: React.FC<LoginButtonProps> = ({ user }) => {
     const handleLogin = async () => {
+        if (!auth || !googleProvider) {
+            alert('Firebase 尚未設定。請參考 firebase_setup_guide.md 設定您的 Firebase 專案。');
+            return;
+        }
         try {
             await signInWithPopup(auth, googleProvider);
         } catch (error) {
@@ -17,6 +21,9 @@ export const LoginButton: React.FC<LoginButtonProps> = ({ user }) => {
     };
 
     const handleLogout = async () => {
+        if (!auth) {
+            return;
+        }
         try {
             await signOut(auth);
         } catch (error) {

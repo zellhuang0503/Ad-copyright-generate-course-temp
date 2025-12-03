@@ -1,6 +1,6 @@
 import React from 'react';
 import { Header } from './Header';
-import { User as FirebaseUser } from 'firebase/auth';
+import type { User as FirebaseUser } from 'firebase/auth';
 
 interface LayoutProps {
     children: React.ReactNode;

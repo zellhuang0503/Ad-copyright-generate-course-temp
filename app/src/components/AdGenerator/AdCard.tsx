@@ -1,6 +1,6 @@
 import React from 'react';
 import { Copy, Bookmark, BarChart2 } from 'lucide-react';
-import { AIResponseCard } from '../../types';
+import type { AIResponseCard } from '../../types';
 
 interface AdCardProps {
     card: AIResponseCard;

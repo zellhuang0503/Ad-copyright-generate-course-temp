@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { onAuthStateChanged, User as FirebaseUser } from 'firebase/auth';
+import { useEffect, useState } from 'react';
+import { onAuthStateChanged, type User as FirebaseUser } from 'firebase/auth';
 import { auth } from './services/firebase';
 import { saveAd } from './services/firestore';
 import { generateAds } from './services/gemini';
 import { Layout } from './components/Layout';
 import { InputSection } from './components/AdGenerator/InputSection';
 import { AdGrid } from './components/AdGenerator/AdGrid';
-import { AIResponseCard } from './types';
+import type { AIResponseCard } from './types/index';
 
 function App() {
   const [user, setUser] = useState<FirebaseUser | null>(null);
@@ -16,10 +16,21 @@ function App() {
   const [lastContext, setLastContext] = useState<any>(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-    });
-    return () => unsubscribe();
+    if (!auth) {
+      console.log('Auth not initialized, running in demo mode');
+      setUser(null);
+      return;
+    }
+
+    try {
+      const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+        setUser(currentUser);
+      });
+      return () => unsubscribe();
+    } catch (error) {
+      console.warn('Firebase Auth not configured. Running in demo mode without authentication.');
+      setUser(null);
+    }
   }, []);
 
   const handleGenerate = async (data: any) => {
@@ -46,7 +57,7 @@ function App() {
 
   const handleSave = async (card: AIResponseCard) => {
     if (!user) {
-      alert('Please sign in to save ads.');
+      alert('Firebase 尚未設定。請參考 firebase_setup_guide.md 設定您的 Firebase 專案以啟用儲存功能。');
       return;
     }
     setIsSaving(true);

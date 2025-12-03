@@ -1,6 +1,6 @@
 import React from 'react';
 import { AdCard } from './AdCard';
-import { AIResponseCard } from '../../types';
+import type { AIResponseCard } from '../../types';
 
 interface AdGridProps {
     cards: AIResponseCard[];

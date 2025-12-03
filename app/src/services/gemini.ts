@@ -1,5 +1,5 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { AIResponseCard } from "../types";
+import type { AIResponseCard } from "../types";
 
 // Initialize Gemini
 // Note: In a production app, you should use an environment variable for the key

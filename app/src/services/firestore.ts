@@ -1,8 +1,12 @@
 import { db } from './firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import { AIResponseCard } from '../types';
+import type { AIResponseCard } from '../types/index';
 
 export const saveAd = async (userId: string, card: AIResponseCard, context: any) => {
+    if (!db) {
+        throw new Error('Firestore is not initialized. Please check your Firebase configuration.');
+    }
+
     try {
         const adData = {
             user_id: userId,
