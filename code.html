@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AdCopy Generator Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13a4ec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101c22",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
+<div class="relative flex h-auto min-h-screen w-full flex-col">
+<!-- Header -->
+<header class="sticky top-0 z-20 flex items-center justify-between whitespace-nowrap border-b border-gray-200/80 bg-background-light/80 px-4 py-3 backdrop-blur-sm dark:border-white/10 dark:bg-background-dark/80 sm:px-6 lg:px-8">
+<div class="flex items-center gap-4">
+<div class="h-6 w-6 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_6_330)">
+<path clip-rule="evenodd" d="M24 0.757355L47.2426 24L24 47.2426L0.757355 24L24 0.757355ZM21 35.7574V12.2426L9.24264 24L21 35.7574Z" fill="currentColor" fill-rule="evenodd"></path>
+</g>
+<defs>
+<clippath id="clip0_6_330">
+<rect fill="white" height="48" width="48"></rect>
+</clippath>
+</defs>
+</svg>
+</div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em] text-gray-900 dark:text-white">AdCopy AI</h2>
+</div>
+<div class="hidden items-center gap-9 md:flex">
+<a class="text-sm font-medium leading-normal text-primary" href="#">Generator</a>
+<a class="text-sm font-medium leading-normal text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white" href="#">My Library</a>
+<a class="text-sm font-medium leading-normal text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white" href="#">Analytics</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex h-10 w-10 cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-white/5 dark:text-gray-400 dark:hover:bg-white/10">
+<span class="material-symbols-outlined text-xl">notifications</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full h-10 w-10 border-2 border-primary/50" data-alt="User avatar image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuALAr_nGYMQqVAmWxmUY7jOTadcLmIXmTbCQ4Djlwt3Fpj0YoxtSMkAK_FDVMGn4UGY0NmqXfSSAYb8dxQaXbXVgn5CrgYQnGgxvrsQOL2_rGr6XQYEnWeHALSasx6A9IbnT66r2Uh8pSSAp3mWpRae8cdV3t2D6c46Vxj27OwnIb6jCcaaKUKMJeBDJhLbLjgxfHeBJJ9GAzaSFbn7gjuc_xS_BLKHilVUBlel4y-DRTaw49Zg-w93WMTUWMeL3ELHnTd41c726bgt");'></div>
+</div>
+</header>
+<!-- Main Content -->
+<div class="flex flex-1">
+<!-- Left Sidebar: Controls -->
+<aside class="w-full max-w-sm flex-shrink-0 border-r border-gray-200/80 bg-background-light p-6 dark:border-white/10 dark:bg-background-dark/50">
+<div class="flex flex-col gap-8">
+<div class="flex flex-col gap-2">
+<h1 class="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Create New Ad Copy</h1>
+<p class="text-sm text-gray-500 dark:text-gray-400">Enter your product details and let AI do the rest.</p>
+</div>
+<!-- Input Fields & Filters -->
+<div class="flex flex-col gap-6">
+<div>
+<label class="text-sm font-medium text-gray-700 dark:text-gray-300" for="product-description">Product description or keywords</label>
+<textarea class="mt-2 w-full resize-none rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-800 placeholder-gray-400 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary dark:border-white/20 dark:bg-white/5 dark:text-gray-200 dark:placeholder-gray-500" id="product-description" placeholder="e.g., eco-friendly sneakers made from recycled materials" rows="4"></textarea>
+</div>
+<h2 class="text-md font-semibold leading-tight tracking-tight text-gray-900 dark:text-white">Filters</h2>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300" for="industry-select">Industry</label>
+<select class="mt-2 block w-full rounded-lg border-gray-300 bg-white py-2 pl-3 pr-10 text-sm focus:border-primary focus:outline-none focus:ring-primary dark:border-white/20 dark:bg-white/5 dark:text-gray-200" id="industry-select">
+<option>E-commerce</option>
+<option>SaaS</option>
+<option>Healthcare</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300" for="tone-select">Tone</label>
+<select class="mt-2 block w-full rounded-lg border-gray-300 bg-white py-2 pl-3 pr-10 text-sm focus:border-primary focus:outline-none focus:ring-primary dark:border-white/20 dark:bg-white/5 dark:text-gray-200" id="tone-select">
+<option>Optimistic</option>
+<option>Professional</option>
+<option>Witty</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300" for="platform-select">Platform</label>
+<select class="mt-2 block w-full rounded-lg border-gray-300 bg-white py-2 pl-3 pr-10 text-sm focus:border-primary focus:outline-none focus:ring-primary dark:border-white/20 dark:bg-white/5 dark:text-gray-200" id="platform-select">
+<option>Facebook</option>
+<option>Google Ads</option>
+<option>LinkedIn</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 dark:text-gray-300" for="length-select">Length</label>
+<select class="mt-2 block w-full rounded-lg border-gray-300 bg-white py-2 pl-3 pr-10 text-sm focus:border-primary focus:outline-none focus:ring-primary dark:border-white/20 dark:bg-white/5 dark:text-gray-200" id="length-select">
+<option>Short</option>
+<option>Medium</option>
+<option>Long</option>
+</select>
+</div>
+</div>
+</div>
+<button class="flex w-full cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg h-12 bg-primary px-6 text-base font-bold text-white shadow-lg shadow-primary/20 transition-all hover:bg-primary/90">
+<span class="material-symbols-outlined">auto_awesome</span>
+                        Generate Copy
+                    </button>
+</div>
+</aside>
+<!-- Right Content: Results -->
+<main class="flex-1 overflow-y-auto bg-gray-100/50 p-6 dark:bg-background-dark/70 sm:p-8">
+<div class="mx-auto max-w-7xl">
+<!-- Results Header -->
+<div class="mb-6 flex flex-wrap items-center justify-between gap-4">
+<p class="text-base text-gray-700 dark:text-gray-300">Showing <span class="font-bold text-gray-900 dark:text-white">6</span> results for '<span class="font-semibold italic text-primary">eco-friendly sneakers</span>'</p>
+<div class="flex items-center gap-2">
+<label class="text-sm font-medium text-gray-600 dark:text-gray-400" for="sort-by">Sort by:</label>
+<select class="rounded-lg border-gray-300 bg-white py-1.5 pl-3 pr-8 text-sm focus:border-primary focus:outline-none focus:ring-primary dark:border-white/20 dark:bg-white/5 dark:text-gray-200" id="sort-by">
+<option>Highest CTR</option>
+<option>Newest</option>
+</select>
+</div>
+</div>
+<!-- Results Grid -->
+<div class="grid grid-cols-1 gap-6 @container lg:grid-cols-2 xl:grid-cols-3">
+<!-- Ad Copy Card 1 -->
+<div class="flex flex-col gap-4 rounded-xl border border-gray-200/80 bg-background-light p-5 shadow-sm transition-shadow hover:shadow-lg dark:border-white/10 dark:bg-background-dark">
+<div class="flex-1">
+<h3 class="mb-2 text-lg font-bold text-gray-900 dark:text-white">Step into Sustainability.</h3>
+<p class="text-sm text-gray-600 dark:text-gray-400">Walk the talk. Our new line of sneakers is made from 100% recycled materials, combining style with a conscience. Feel good, look great.</p>
+</div>
+<div class="flex flex-wrap items-center gap-2">
+<span class="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary dark:bg-primary/20">Facebook</span>
+<span class="rounded-full bg-teal-500/10 px-2.5 py-0.5 text-xs font-medium text-teal-600 dark:bg-teal-500/20 dark:text-teal-400">Optimistic</span>
+</div>
+<div class="h-px w-full bg-gray-200 dark:bg-white/10"></div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-xs text-gray-500 dark:text-gray-400">Predicted CTR</span>
+<span class="text-xl font-bold text-green-500">4.7%</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-100 text-gray-600 transition-colors hover:bg-gray-200 hover:text-gray-800 dark:bg-white/5 dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white"><span class="material-symbols-outlined text-base">content_copy</span></button>
+<button class="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-100 text-gray-600 transition-colors hover:bg-gray-200 hover:text-gray-800 dark:bg-white/5 dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white"><span class="material-symbols-outlined text-base">bookmark_add</span></button>
+</div>
+</div>
+</div>
+<!-- Ad Copy Card 2 -->
+<div class="flex flex-col gap-4 rounded-xl border border-gray-200/80 bg-background-light p-5 shadow-sm transition-shadow hover:shadow-lg dark:border-white/10 dark:bg-background-dark">
+<div class="flex-1">
+<h3 class="mb-2 text-lg font-bold text-gray-900 dark:text-white">Eco-Friendly. Earth-Approved.</h3>
+<p class="text-sm text-gray-600 dark:text-gray-400">Join the movement. Our sneakers are crafted from ocean plastics and recycled rubber. A better planet is at your feet. Shop now and make a difference.</p>
+</div>
+<div class="flex flex-wrap items-center gap-2">
+<span class="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary dark:bg-primary/20">Google Ads</span>
+<span class="rounded-full bg-teal-500/10 px-2.5 py-0.5 text-xs font-medium text-teal-600 dark:bg-teal-500/20 dark:text-teal-400">Optimistic</span>
+</div>
+<div class="h-px w-full bg-gray-200 dark:bg-white/10"></div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-xs text-gray-500 dark:text-gray-400">Predicted CTR</span>
+<span class="text-xl font-bold text-green-500">4.2%</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-100 text-gray-600 transition-colors hover:bg-gray-200 hover:text-gray-800 dark:bg-white/5 dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white"><span class="material-symbols-outlined text-base">content_copy</span></button>
+<button class="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-100 text-gray-600 transition-colors hover:bg-gray-200 hover:text-gray-800 dark:bg-white/5 dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white"><span class="material-symbols-outlined text-base">bookmark_add</span></button>
+</div>
+</div>
+</div>
+<!-- Ad Copy Card 3 -->
+<div class="flex flex-col gap-4 rounded-xl border border-gray-200/80 bg-background-light p-5 shadow-sm transition-shadow hover:shadow-lg dark:border-white/10 dark:bg-background-dark">
+<div class="flex-1">
+<h3 class="mb-2 text-lg font-bold text-gray-900 dark:text-white">Style That Doesn't Cost the Earth.</h3>
+<p class="text-sm text-gray-600 dark:text-gray-400">Sustainable fashion just got a major upgrade. Experience ultimate comfort and timeless design with our 100% eco-friendly sneakers.</p>
+</div>
+<div class="flex flex-wrap items-center gap-2">
+<span class="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary dark:bg-primary/20">Facebook</span>
+<span class="rounded-full bg-purple-500/10 px-2.5 py-0.5 text-xs font-medium text-purple-600 dark:bg-purple-500/20 dark:text-purple-400">Professional</span>
+</div>
+<div class="h-px w-full bg-gray-200 dark:bg-white/10"></div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-xs text-gray-500 dark:text-gray-400">Predicted CTR</span>
+<span class="text-xl font-bold text-orange-400">3.8%</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-100 text-gray-600 transition-colors hover:bg-gray-200 hover:text-gray-800 dark:bg-white/5 dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white"><span class="material-symbols-outlined text-base">content_copy</span></button>
+<button class="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-100 text-gray-600 transition-colors hover:bg-gray-200 hover:text-gray-800 dark:bg-white/5 dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white"><span class="material-symbols-outlined text-base">bookmark_add</span></button>
+</div>
+</div>
+</div>
+<!-- Ad Copy Card 4 -->
+<div class="flex flex-col gap-4 rounded-xl border border-gray-200/80 bg-background-light p-5 shadow-sm transition-shadow hover:shadow-lg dark:border-white/10 dark:bg-background-dark">
+<div class="flex-1">
+<h3 class="mb-2 text-lg font-bold text-gray-900 dark:text-white">Sustainable Soles for Modern Souls</h3>
+<p class="text-sm text-gray-600 dark:text-gray-400">Redefine your footprint with our eco-conscious sneaker collection. Built for comfort, designed for life, and kind to the planet.</p>
+</div>
+<div class="flex flex-wrap items-center gap-2">
+<span class="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary dark:bg-primary/20">LinkedIn</span>
+<span class="rounded-full bg-purple-500/10 px-2.5 py-0.5 text-xs font-medium text-purple-600 dark:bg-purple-500/20 dark:text-purple-400">Professional</span>
+</div>
+<div class="h-px w-full bg-gray-200 dark:bg-white/10"></div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-xs text-gray-500 dark:text-gray-400">Predicted CTR</span>
+<span class="text-xl font-bold text-orange-400">3.5%</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-100 text-gray-600 transition-colors hover:bg-gray-200 hover:text-gray-800 dark:bg-white/5 dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white"><span class="material-symbols-outlined text-base">content_copy</span></button>
+<button class="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-100 text-gray-600 transition-colors hover:bg-gray-200 hover:text-gray-800 dark:bg-white/5 dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white"><span class="material-symbols-outlined text-base">bookmark_add</span></button>
+</div>
+</div>
+</div>
+<!-- Ad Copy Card 5 -->
+<div class="flex flex-col gap-4 rounded-xl border border-gray-200/80 bg-background-light p-5 shadow-sm transition-shadow hover:shadow-lg dark:border-white/10 dark:bg-background-dark">
+<div class="flex-1">
+<h3 class="mb-2 text-lg font-bold text-gray-900 dark:text-white">Wear the Change You Want to See.</h3>
+<p class="text-sm text-gray-600 dark:text-gray-400">Finally, sneakers you can feel great about wearing. Made from recycled and plant-based materials for a lighter impact.</p>
+</div>
+<div class="flex flex-wrap items-center gap-2">
+<span class="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary dark:bg-primary/20">Facebook</span>
+<span class="rounded-full bg-yellow-500/10 px-2.5 py-0.5 text-xs font-medium text-yellow-700 dark:bg-yellow-500/20 dark:text-yellow-400">Witty</span>
+</div>
+<div class="h-px w-full bg-gray-200 dark:bg-white/10"></div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-xs text-gray-500 dark:text-gray-400">Predicted CTR</span>
+<span class="text-xl font-bold text-orange-400">3.1%</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-100 text-gray-600 transition-colors hover:bg-gray-200 hover:text-gray-800 dark:bg-white/5 dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white"><span class="material-symbols-outlined text-base">content_copy</span></button>
+<button class="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-100 text-gray-600 transition-colors hover:bg-gray-200 hover:text-gray-800 dark:bg-white/5 dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white"><span class="material-symbols-outlined text-base">bookmark_add</span></button>
+</div>
+</div>
+</div>
+<!-- Ad Copy Card 6 -->
+<div class="flex flex-col gap-4 rounded-xl border border-gray-200/80 bg-background-light p-5 shadow-sm transition-shadow hover:shadow-lg dark:border-white/10 dark:bg-background-dark">
+<div class="flex-1">
+<h3 class="mb-2 text-lg font-bold text-gray-900 dark:text-white">Green Steps, Big Impact.</h3>
+<p class="text-sm text-gray-600 dark:text-gray-400">Our innovative recycled sneakers offer premium comfort and durability, proving sustainability and style go hand-in-hand.</p>
+</div>
+<div class="flex flex-wrap items-center gap-2">
+<span class="rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary dark:bg-primary/20">Google Ads</span>
+<span class="rounded-full bg-teal-500/10 px-2.5 py-0.5 text-xs font-medium text-teal-600 dark:bg-teal-500/20 dark:text-teal-400">Optimistic</span>
+</div>
+<div class="h-px w-full bg-gray-200 dark:bg-white/10"></div>
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-xs text-gray-500 dark:text-gray-400">Predicted CTR</span>
+<span class="text-xl font-bold text-red-500">2.5%</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-100 text-gray-600 transition-colors hover:bg-gray-200 hover:text-gray-800 dark:bg-white/5 dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white"><span class="material-symbols-outlined text-base">content_copy</span></button>
+<button class="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-100 text-gray-600 transition-colors hover:bg-gray-200 hover:text-gray-800 dark:bg-white/5 dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white"><span class="material-symbols-outlined text-base">bookmark_add</span></button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>
