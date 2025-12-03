@@ -49,9 +49,10 @@ function App() {
         data.length
       );
       setGeneratedCards(cards);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Failed to generate ads:", error);
-      alert("Failed to generate ads. Please try again later.");
+      const errorMessage = error.message || "Failed to generate ads. Please try again later.";
+      alert(`生成失敗: ${errorMessage}`);
     } finally {
       setIsGenerating(false);
     }

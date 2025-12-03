@@ -29,9 +29,10 @@ export const SavedAdsPage: React.FC<SavedAdsPageProps> = ({ user }) => {
         try {
             const ads = await getSavedAds(user.uid);
             setSavedAds(ads);
-        } catch (error) {
+        } catch (error: any) {
             console.error('Failed to load saved ads:', error);
-            alert('無法載入已儲存的廣告');
+            const errorMsg = error.message || '無法載入已儲存的廣告';
+            alert(`載入失敗: ${errorMsg}\n\n請確認:\n1. Firebase 是否已正確設定\n2. 是否已登入\n3. 檢查瀏覽器控制台的詳細錯誤`);
         } finally {
             setIsLoading(false);
         }

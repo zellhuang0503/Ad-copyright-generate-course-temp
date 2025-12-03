@@ -38,11 +38,10 @@ export const getSavedAds = async (userId: string): Promise<SavedAd[]> => {
     }
 
     try {
+        // Simplified query without compound index requirement
         const q = query(
             collection(db, 'saved_ads'),
-            where('user_id', '==', userId),
-            where('is_archived', '==', false),
-            orderBy('created_at', 'desc')
+            where('user_id', '==', userId)
         );
 
         const querySnapshot = await getDocs(q);
@@ -50,23 +49,37 @@ export const getSavedAds = async (userId: string): Promise<SavedAd[]> => {
 
         querySnapshot.forEach((doc) => {
             const data = doc.data();
-            savedAds.push({
-                id: doc.id,
-                userId: data.user_id,
-                content: data.content,
-                metrics: {
-                    predictedCtr: data.metrics.predicted_ctr,
-                    userRating: data.metrics.user_rating
-                },
-                generationContext: data.generation_context,
-                tags: data.tags,
-                createdAt: data.created_at
-            });
+            // Filter archived ads in memory instead of query
+            if (data.is_archived !== true) {
+                savedAds.push({
+                    id: doc.id,
+                    userId: data.user_id,
+                    content: data.content,
+                    metrics: {
+                        predictedCtr: data.metrics.predicted_ctr,
+                        userRating: data.metrics.user_rating
+                    },
+                    generationContext: data.generation_context,
+                    tags: data.tags,
+                    createdAt: data.created_at
+                });
+            }
+        });
+
+        // Sort by creation date in memory
+        savedAds.sort((a, b) => {
+            const timeA = a.createdAt?.toMillis ? a.createdAt.toMillis() : 0;
+            const timeB = b.createdAt?.toMillis ? b.createdAt.toMillis() : 0;
+            return timeB - timeA; // Descending order (newest first)
         });
 
         return savedAds;
-    } catch (error) {
+    } catch (error: any) {
         console.error("Error fetching saved ads: ", error);
+        console.error("Error details:", {
+            message: error.message,
+            code: error.code
+        });
         throw error;
     }
 };

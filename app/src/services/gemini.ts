@@ -79,8 +79,23 @@ export const generateAds = async (
             id: card.id || `gen-${Date.now()}-${index}`
         }));
 
-    } catch (error) {
+    } catch (error: any) {
         console.error("Gemini Generation Error:", error);
+        console.error("Error details:", {
+            message: error.message,
+            status: error.status,
+            statusText: error.statusText
+        });
+
+        // Provide more detailed error message
+        if (error.status === 429) {
+            throw new Error('API 配額已用完，請稍後再試或更換 API key');
+        } else if (error.status === 404) {
+            throw new Error('模型不存在，請檢查模型名稱');
+        } else if (error.message?.includes('JSON')) {
+            throw new Error('AI 回應格式錯誤，請重試');
+        }
+
         throw error;
     }
 };
