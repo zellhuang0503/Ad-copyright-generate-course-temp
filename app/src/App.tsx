@@ -11,11 +11,12 @@ import type { AIResponseCard } from './types/index';
 
 function App() {
   const [user, setUser] = useState<FirebaseUser | null>(null);
-  const [currentPage, setCurrentPage] = useState<'generate' | 'saved'>('generate');
+  const [currentPage, setCurrentPage] = useState<'generate' | 'saved' | 'analytics'>('generate');
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedCards, setGeneratedCards] = useState<AIResponseCard[]>([]);
   const [isSaving, setIsSaving] = useState(false);
   const [lastContext, setLastContext] = useState<any>(null);
+  const [searchKeyword, setSearchKeyword] = useState<string>('');
 
   useEffect(() => {
     if (!auth) {
@@ -38,6 +39,7 @@ function App() {
   const handleGenerate = async (data: any) => {
     setIsGenerating(true);
     setLastContext(data);
+    setSearchKeyword(data.keyword);
     setGeneratedCards([]); // Clear previous results
 
     try {
@@ -78,24 +80,32 @@ function App() {
   return (
     <Layout user={user} currentPage={currentPage} onNavigate={setCurrentPage}>
       {currentPage === 'generate' ? (
-        <>
-          <div className="text-center py-12">
-            <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
-              Generate High-Conversion Ad Copy
-            </h2>
-            <p className="mt-4 text-lg text-gray-500 max-w-2xl mx-auto">
-              AI-powered inspiration for your next marketing campaign.
-              Enter your product details below to get started.
-            </p>
+        <div className="flex h-full">
+          {/* Left Sidebar - Input Section */}
+          <div className="w-[395px] bg-[#1a1d29] border-r border-gray-800 overflow-y-auto">
+            <InputSection onGenerate={handleGenerate} isGenerating={isGenerating} />
           </div>
 
-          <div className="max-w-5xl mx-auto">
-            <InputSection onGenerate={handleGenerate} isGenerating={isGenerating} />
-            <AdGrid cards={generatedCards} onSave={handleSave} isSaving={isSaving} />
+          {/* Right Content - Results Grid */}
+          <div className="flex-1 overflow-y-auto">
+            <AdGrid
+              cards={generatedCards}
+              onSave={handleSave}
+              isSaving={isSaving}
+              searchKeyword={searchKeyword}
+              isGenerating={isGenerating}
+            />
           </div>
-        </>
-      ) : (
+        </div>
+      ) : currentPage === 'saved' ? (
         <SavedAdsPage user={user} />
+      ) : (
+        <div className="flex items-center justify-center h-full">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold text-gray-300 mb-2">Analytics</h2>
+            <p className="text-gray-500">Coming soon...</p>
+          </div>
+        </div>
       )}
     </Layout>
   );

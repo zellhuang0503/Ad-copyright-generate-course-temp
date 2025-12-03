@@ -1,56 +1,65 @@
 import React from 'react';
-import { Sparkles, Bookmark } from 'lucide-react';
+import { Sparkles, Bell } from 'lucide-react';
 import { LoginButton } from './Auth/LoginButton';
 import type { User as FirebaseUser } from 'firebase/auth';
 
 interface HeaderProps {
     user: FirebaseUser | null;
-    currentPage: 'generate' | 'saved';
-    onNavigate: (page: 'generate' | 'saved') => void;
+    currentPage: 'generate' | 'saved' | 'analytics';
+    onNavigate: (page: 'generate' | 'saved' | 'analytics') => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({ user, currentPage, onNavigate }) => {
     return (
-        <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <header className="bg-[#1a1d29] border-b border-gray-800 sticky top-0 z-50 h-16">
+            <div className="max-w-full mx-auto px-6">
                 <div className="flex justify-between items-center h-16">
-                    <div className="flex items-center gap-6">
-                        <div className="flex items-center gap-2 cursor-pointer" onClick={() => onNavigate('generate')}>
-                            <div className="bg-gradient-to-tr from-indigo-600 to-purple-600 p-2 rounded-lg">
-                                <Sparkles className="w-6 h-6 text-white" />
+                    <div className="flex items-center gap-12">
+                        <div className="flex items-center gap-3 cursor-pointer" onClick={() => onNavigate('generate')}>
+                            <div className="bg-gradient-to-br from-cyan-500 to-blue-600 p-2 rounded-lg">
+                                <Sparkles className="w-5 h-5 text-white" />
                             </div>
-                            <div>
-                                <h1 className="text-xl font-bold text-gray-900">AdCopy.ai</h1>
-                                <p className="text-xs text-gray-500">Inspiration Library</p>
-                            </div>
+                            <h1 className="text-xl font-bold text-white">AdCopy AI</h1>
                         </div>
 
-                        <nav className="hidden md:flex items-center gap-1">
+                        <nav className="flex items-center gap-8">
                             <button
                                 onClick={() => onNavigate('generate')}
-                                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                                className={`text-sm font-medium transition-colors ${
                                     currentPage === 'generate'
-                                        ? 'bg-indigo-100 text-indigo-700'
-                                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                                        ? 'text-cyan-400'
+                                        : 'text-gray-400 hover:text-gray-200'
                                 }`}
                             >
-                                生成廣告
+                                Generator
                             </button>
                             <button
                                 onClick={() => onNavigate('saved')}
-                                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-2 ${
+                                className={`text-sm font-medium transition-colors ${
                                     currentPage === 'saved'
-                                        ? 'bg-indigo-100 text-indigo-700'
-                                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                                        ? 'text-cyan-400'
+                                        : 'text-gray-400 hover:text-gray-200'
                                 }`}
                             >
-                                <Bookmark className="w-4 h-4" />
-                                已儲存
+                                My Library
+                            </button>
+                            <button
+                                onClick={() => onNavigate('analytics')}
+                                className={`text-sm font-medium transition-colors ${
+                                    currentPage === 'analytics'
+                                        ? 'text-cyan-400'
+                                        : 'text-gray-400 hover:text-gray-200'
+                                }`}
+                            >
+                                Analytics
                             </button>
                         </nav>
                     </div>
 
                     <div className="flex items-center gap-4">
+                        <button className="p-2 hover:bg-gray-800 rounded-lg transition-colors">
+                            <Bell className="w-5 h-5 text-gray-400" />
+                        </button>
                         <LoginButton user={user} />
                     </div>
                 </div>

@@ -1,15 +1,15 @@
 import React from 'react';
-import { Search, Sparkles } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 
 interface InputSectionProps {
     onGenerate: (data: any) => void;
     isGenerating: boolean;
 }
 
-const INDUSTRIES = ['美妝', '3C', '服飾', '食品', '金融', '其他'];
-const EMOTIONS = ['幽默', '恐懼(痛點)', '溫馨', '專業', '緊迫'];
-const PLATFORMS = ['Facebook', 'Instagram', 'Google Ads'];
-const LENGTHS = ['短文案(<50字)', '中長文案', '長故事'];
+const INDUSTRIES = ['E-commerce', 'Tech', 'Fashion', 'Food', 'Finance', 'Other'];
+const EMOTIONS = ['Optimistic', 'Urgent', 'Professional', 'Witty', 'Warm'];
+const PLATFORMS = ['Facebook', 'Instagram', 'Google Ads', 'LinkedIn'];
+const LENGTHS = ['Short', 'Medium', 'Long'];
 
 export const InputSection: React.FC<InputSectionProps> = ({ onGenerate, isGenerating }) => {
     const [keyword, setKeyword] = React.useState('');
@@ -24,106 +24,119 @@ export const InputSection: React.FC<InputSectionProps> = ({ onGenerate, isGenera
     };
 
     return (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Search Bar */}
-                <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <Search className="h-5 w-5 text-gray-400" />
-                    </div>
-                    <input
-                        type="text"
-                        className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        placeholder="輸入產品名稱或核心關鍵字 (例如：防脫髮洗髮精)"
-                        value={keyword}
-                        onChange={(e) => setKeyword(e.target.value)}
-                        required
-                    />
-                </div>
+        <div className="p-6 h-full flex flex-col">
+            <div className="mb-8">
+                <h2 className="text-2xl font-bold text-white mb-2">Create New Ad Copy</h2>
+                <p className="text-sm text-gray-400">Enter your product details and let AI do the rest.</p>
+            </div>
 
-                {/* Filters Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    {/* Industry */}
+            <form onSubmit={handleSubmit} className="flex-1 flex flex-col">
+                <div className="flex-1 space-y-6">
+                    {/* Product Description */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">行業類別</label>
-                        <select
-                            value={industry}
-                            onChange={(e) => setIndustry(e.target.value)}
-                            className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-                        >
-                            {INDUSTRIES.map((opt) => (
-                                <option key={opt} value={opt}>{opt}</option>
-                            ))}
-                        </select>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">
+                            Product description or keywords
+                        </label>
+                        <textarea
+                            value={keyword}
+                            onChange={(e) => setKeyword(e.target.value)}
+                            placeholder="e.g., eco-friendly sneakers made from recycled materials"
+                            required
+                            rows={4}
+                            className="w-full px-4 py-3 bg-[#0f1117] border border-gray-700 rounded-lg text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent resize-none"
+                        />
                     </div>
 
-                    {/* Emotion */}
+                    {/* Filters */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">情感基調</label>
-                        <select
-                            value={emotion}
-                            onChange={(e) => setEmotion(e.target.value)}
-                            className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-                        >
-                            {EMOTIONS.map((opt) => (
-                                <option key={opt} value={opt}>{opt}</option>
-                            ))}
-                        </select>
-                    </div>
+                        <h3 className="text-sm font-semibold text-white mb-4">Filters</h3>
+                        <div className="space-y-4">
+                            {/* Industry & Tone */}
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-xs font-medium text-gray-400 mb-2">Industry</label>
+                                    <select
+                                        value={industry}
+                                        onChange={(e) => setIndustry(e.target.value)}
+                                        className="w-full px-3 py-2 bg-[#0f1117] border border-gray-700 rounded-lg text-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                    >
+                                        {INDUSTRIES.map((opt) => (
+                                            <option key={opt} value={opt}>{opt}</option>
+                                        ))}
+                                    </select>
+                                </div>
 
-                    {/* Platform */}
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">發布平台</label>
-                        <select
-                            value={platform}
-                            onChange={(e) => setPlatform(e.target.value)}
-                            className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-                        >
-                            {PLATFORMS.map((opt) => (
-                                <option key={opt} value={opt}>{opt}</option>
-                            ))}
-                        </select>
-                    </div>
+                                <div>
+                                    <label className="block text-xs font-medium text-gray-400 mb-2">Tone</label>
+                                    <select
+                                        value={emotion}
+                                        onChange={(e) => setEmotion(e.target.value)}
+                                        className="w-full px-3 py-2 bg-[#0f1117] border border-gray-700 rounded-lg text-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                    >
+                                        {EMOTIONS.map((opt) => (
+                                            <option key={opt} value={opt}>{opt}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
 
-                    {/* Length */}
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">長度限制</label>
-                        <select
-                            value={length}
-                            onChange={(e) => setLength(e.target.value)}
-                            className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-                        >
-                            {LENGTHS.map((opt) => (
-                                <option key={opt} value={opt}>{opt}</option>
-                            ))}
-                        </select>
+                            {/* Platform & Length */}
+                            <div className="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-xs font-medium text-gray-400 mb-2">Platform</label>
+                                    <select
+                                        value={platform}
+                                        onChange={(e) => setPlatform(e.target.value)}
+                                        className="w-full px-3 py-2 bg-[#0f1117] border border-gray-700 rounded-lg text-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                    >
+                                        {PLATFORMS.map((opt) => (
+                                            <option key={opt} value={opt}>{opt}</option>
+                                        ))}
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label className="block text-xs font-medium text-gray-400 mb-2">Length</label>
+                                    <select
+                                        value={length}
+                                        onChange={(e) => setLength(e.target.value)}
+                                        className="w-full px-3 py-2 bg-[#0f1117] border border-gray-700 rounded-lg text-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                                    >
+                                        {LENGTHS.map((opt) => (
+                                            <option key={opt} value={opt}>{opt}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 {/* Generate Button */}
-                <div className="flex justify-end">
-                    <button
-                        type="submit"
-                        disabled={isGenerating || !keyword.trim()}
-                        className={`flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10 ${(isGenerating || !keyword.trim()) ? 'opacity-50 cursor-not-allowed' : ''
-                            }`}
-                    >
-                        {isGenerating ? (
-                            <>
-                                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                </svg>
-                                Generating...
-                            </>
-                        ) : (
-                            <>
-                                <Sparkles className="w-5 h-5 mr-2" />
-                                Generate Ad Copy
-                            </>
-                        )}
-                    </button>
-                </div>
+                <button
+                    type="submit"
+                    disabled={isGenerating || !keyword.trim()}
+                    className={`w-full mt-6 flex items-center justify-center px-6 py-3 rounded-lg font-medium text-white transition-all ${
+                        isGenerating || !keyword.trim()
+                            ? 'bg-gray-700 cursor-not-allowed'
+                            : 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700'
+                    }`}
+                >
+                    {isGenerating ? (
+                        <>
+                            <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            Generating...
+                        </>
+                    ) : (
+                        <>
+                            <Sparkles className="w-5 h-5 mr-2" />
+                            Generate Copy
+                        </>
+                    )}
+                </button>
             </form>
         </div>
     );

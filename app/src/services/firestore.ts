@@ -1,5 +1,5 @@
 import { db } from './firebase';
-import { collection, addDoc, serverTimestamp, query, where, getDocs, orderBy, deleteDoc, doc } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, query, where, getDocs, deleteDoc, doc } from 'firebase/firestore';
 import type { AIResponseCard, SavedAd } from '../types/index';
 
 export const saveAd = async (userId: string, card: AIResponseCard, context: any) => {
