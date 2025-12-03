@@ -4,7 +4,7 @@ import type { AIResponseCard } from "../types";
 // Initialize Gemini
 // Note: In a production app, you should use an environment variable for the key
 // But for this demo/MVP, we'll use the provided key directly or via a config
-const API_KEY = "AIzaSyBGfEnE0JUMIgq4yACLKjcRVyH6R53Mg5U";
+const API_KEY = "AIzaSyBYv434wUGRs_oouyGJuS8i7eEvSESA9-0";
 const genAI = new GoogleGenerativeAI(API_KEY);
 
 const SYSTEM_PROMPT = `
@@ -54,7 +54,7 @@ export const generateAds = async (
     length: string
 ): Promise<AIResponseCard[]> => {
     try {
-        const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
         const userPrompt = JSON.stringify({
             product_name: keyword,
