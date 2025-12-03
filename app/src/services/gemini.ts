@@ -2,7 +2,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import type { AIResponseCard } from "../types";
 
 // Default API key for free tier
-const DEFAULT_API_KEY = "AIzaSyBYv434wUGRs_oouyGJuS8i7eEvSESA9-0";
+const DEFAULT_API_KEY = import.meta.env.VITE_GEMINI_API_KEY || "";
 const USER_API_KEY_STORAGE = 'user_gemini_api_key';
 
 // Get API key from localStorage or use default
