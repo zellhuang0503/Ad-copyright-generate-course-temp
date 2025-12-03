@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react';
 import { onAuthStateChanged, type User as FirebaseUser } from 'firebase/auth';
 import { auth } from './services/firebase';
 import { saveAd } from './services/firestore';
-import { generateAds } from './services/gemini';
+import { generateAds, setUserApiKey, hasUserApiKey } from './services/gemini';
 import { Layout } from './components/Layout';
 import { InputSection } from './components/AdGenerator/InputSection';
 import { AdGrid } from './components/AdGenerator/AdGrid';
 import { SavedAdsPage } from './components/SavedAds/SavedAdsPage';
+import { ApiKeyModal } from './components/ApiKeyModal';
+import { incrementUsageCount, hasReachedLimit, getRemainingGenerations } from './services/usageTracker';
 import type { AIResponseCard } from './types/index';
 
 function App() {
@@ -17,6 +19,8 @@ function App() {
   const [isSaving, setIsSaving] = useState(false);
   const [lastContext, setLastContext] = useState<any>(null);
   const [searchKeyword, setSearchKeyword] = useState<string>('');
+  const [showApiKeyModal, setShowApiKeyModal] = useState(false);
+  const [pendingGenerateData, setPendingGenerateData] = useState<any>(null);
 
   useEffect(() => {
     if (!auth) {
@@ -37,6 +41,13 @@ function App() {
   }, []);
 
   const handleGenerate = async (data: any) => {
+    // Check if user has reached free limit and doesn't have custom API key
+    if (hasReachedLimit() && !hasUserApiKey()) {
+      setPendingGenerateData(data);
+      setShowApiKeyModal(true);
+      return;
+    }
+
     setIsGenerating(true);
     setLastContext(data);
     setSearchKeyword(data.keyword);
@@ -51,12 +62,28 @@ function App() {
         data.length
       );
       setGeneratedCards(cards);
+
+      // Only increment usage if using default API key
+      if (!hasUserApiKey()) {
+        incrementUsageCount();
+      }
     } catch (error: any) {
       console.error("Failed to generate ads:", error);
       const errorMessage = error.message || "Failed to generate ads. Please try again later.";
       alert(`生成失敗: ${errorMessage}`);
     } finally {
       setIsGenerating(false);
+    }
+  };
+
+  const handleApiKeySubmit = (apiKey: string) => {
+    setUserApiKey(apiKey);
+    setShowApiKeyModal(false);
+
+    // If there was a pending generation, execute it now
+    if (pendingGenerateData) {
+      handleGenerate(pendingGenerateData);
+      setPendingGenerateData(null);
     }
   };
 
@@ -78,36 +105,52 @@ function App() {
   };
 
   return (
-    <Layout user={user} currentPage={currentPage} onNavigate={setCurrentPage}>
-      {currentPage === 'generate' ? (
-        <div className="flex h-full">
-          {/* Left Sidebar - Input Section */}
-          <div className="w-[395px] bg-[#1a1d29] border-r border-gray-800 overflow-y-auto">
-            <InputSection onGenerate={handleGenerate} isGenerating={isGenerating} />
-          </div>
+    <>
+      <Layout user={user} currentPage={currentPage} onNavigate={setCurrentPage}>
+        {currentPage === 'generate' ? (
+          <div className="flex h-full">
+            {/* Left Sidebar - Input Section */}
+            <div className="w-[395px] bg-[#1a1d29] border-r border-gray-800 overflow-y-auto">
+              <InputSection
+                onGenerate={handleGenerate}
+                isGenerating={isGenerating}
+                remainingGenerations={getRemainingGenerations()}
+                hasCustomApiKey={hasUserApiKey()}
+              />
+            </div>
 
-          {/* Right Content - Results Grid */}
-          <div className="flex-1 overflow-y-auto">
-            <AdGrid
-              cards={generatedCards}
-              onSave={handleSave}
-              isSaving={isSaving}
-              searchKeyword={searchKeyword}
-              isGenerating={isGenerating}
-            />
+            {/* Right Content - Results Grid */}
+            <div className="flex-1 overflow-y-auto">
+              <AdGrid
+                cards={generatedCards}
+                onSave={handleSave}
+                isSaving={isSaving}
+                searchKeyword={searchKeyword}
+                isGenerating={isGenerating}
+              />
+            </div>
           </div>
-        </div>
-      ) : currentPage === 'saved' ? (
-        <SavedAdsPage user={user} />
-      ) : (
-        <div className="flex items-center justify-center h-full">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-gray-300 mb-2">數據分析</h2>
-            <p className="text-gray-500">即將推出...</p>
+        ) : currentPage === 'saved' ? (
+          <SavedAdsPage user={user} />
+        ) : (
+          <div className="flex items-center justify-center h-full">
+            <div className="text-center">
+              <h2 className="text-2xl font-bold text-gray-300 mb-2">數據分析</h2>
+              <p className="text-gray-500">即將推出...</p>
+            </div>
           </div>
-        </div>
-      )}
-    </Layout>
+        )}
+      </Layout>
+
+      <ApiKeyModal
+        isOpen={showApiKeyModal}
+        onClose={() => {
+          setShowApiKeyModal(false);
+          setPendingGenerateData(null);
+        }}
+        onSubmit={handleApiKeySubmit}
+      />
+    </>
   );
 }
 

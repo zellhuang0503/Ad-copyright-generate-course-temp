@@ -4,6 +4,8 @@ import { Sparkles } from 'lucide-react';
 interface InputSectionProps {
     onGenerate: (data: any) => void;
     isGenerating: boolean;
+    remainingGenerations: number;
+    hasCustomApiKey: boolean;
 }
 
 const INDUSTRIES = ['電商', '科技', '時尚', '食品', '金融', '其他'];
@@ -11,7 +13,7 @@ const EMOTIONS = ['樂觀', '急迫', '專業', '幽默', '溫馨'];
 const PLATFORMS = ['Facebook', 'Instagram', 'Google Ads', 'LinkedIn'];
 const LENGTHS = ['短', '中', '長'];
 
-export const InputSection: React.FC<InputSectionProps> = ({ onGenerate, isGenerating }) => {
+export const InputSection: React.FC<InputSectionProps> = ({ onGenerate, isGenerating, remainingGenerations, hasCustomApiKey }) => {
     const [keyword, setKeyword] = React.useState('');
     const [industry, setIndustry] = React.useState(INDUSTRIES[0]);
     const [emotion, setEmotion] = React.useState(EMOTIONS[0]);
@@ -28,6 +30,15 @@ export const InputSection: React.FC<InputSectionProps> = ({ onGenerate, isGenera
             <div className="mb-8">
                 <h2 className="text-2xl font-bold text-white mb-2">建立新廣告文案</h2>
                 <p className="text-sm text-gray-400">輸入產品詳情，讓 AI 為您完成其餘工作</p>
+
+                {/* Usage counter */}
+                {!hasCustomApiKey && (
+                    <div className="mt-4 px-3 py-2 bg-cyan-500/10 border border-cyan-500/20 rounded-lg">
+                        <p className="text-xs text-cyan-400">
+                            免費剩餘次數：<span className="font-bold">{remainingGenerations}</span> / 10
+                        </p>
+                    </div>
+                )}
             </div>
 
             <form onSubmit={handleSubmit} className="flex-1 flex flex-col">

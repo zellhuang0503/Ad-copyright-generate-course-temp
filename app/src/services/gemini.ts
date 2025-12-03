@@ -1,11 +1,30 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import type { AIResponseCard } from "../types";
 
-// Initialize Gemini
-// Note: In a production app, you should use an environment variable for the key
-// But for this demo/MVP, we'll use the provided key directly or via a config
-const API_KEY = "AIzaSyBYv434wUGRs_oouyGJuS8i7eEvSESA9-0";
-const genAI = new GoogleGenerativeAI(API_KEY);
+// Default API key for free tier
+const DEFAULT_API_KEY = "AIzaSyBYv434wUGRs_oouyGJuS8i7eEvSESA9-0";
+const USER_API_KEY_STORAGE = 'user_gemini_api_key';
+
+// Get API key from localStorage or use default
+const getApiKey = (): string => {
+    const userKey = localStorage.getItem(USER_API_KEY_STORAGE);
+    return userKey || DEFAULT_API_KEY;
+};
+
+// Save user's API key
+export const setUserApiKey = (apiKey: string): void => {
+    localStorage.setItem(USER_API_KEY_STORAGE, apiKey);
+};
+
+// Check if user has custom API key
+export const hasUserApiKey = (): boolean => {
+    return !!localStorage.getItem(USER_API_KEY_STORAGE);
+};
+
+// Clear user's API key
+export const clearUserApiKey = (): void => {
+    localStorage.removeItem(USER_API_KEY_STORAGE);
+};
 
 const SYSTEM_PROMPT = `
 # Role
@@ -54,6 +73,9 @@ export const generateAds = async (
     length: string
 ): Promise<AIResponseCard[]> => {
     try {
+        // Get API key (user's custom key or default)
+        const apiKey = getApiKey();
+        const genAI = new GoogleGenerativeAI(apiKey);
         const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
         const userPrompt = JSON.stringify({
