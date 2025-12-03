@@ -55,45 +55,51 @@ export const SavedAdsPage: React.FC<SavedAdsPageProps> = ({ user }) => {
 
     if (!user) {
         return (
-            <div className="text-center py-20">
-                <Bookmark className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">請先登入</h2>
-                <p className="text-gray-500">您需要登入才能查看已儲存的廣告文案</p>
+            <div className="min-h-full bg-[#0f1117] flex items-center justify-center">
+                <div className="text-center py-20">
+                    <Bookmark className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+                    <h2 className="text-2xl font-bold text-gray-300 mb-2">請先登入</h2>
+                    <p className="text-gray-500">您需要登入才能查看已儲存的廣告文案</p>
+                </div>
             </div>
         );
     }
 
     if (isLoading) {
         return (
-            <div className="text-center py-20">
-                <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
-                <p className="mt-4 text-gray-500">載入中...</p>
+            <div className="min-h-full bg-[#0f1117] flex items-center justify-center">
+                <div className="text-center py-20">
+                    <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500"></div>
+                    <p className="mt-4 text-gray-400">載入中...</p>
+                </div>
             </div>
         );
     }
 
     if (savedAds.length === 0) {
         return (
-            <div className="text-center py-20">
-                <Bookmark className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">還沒有儲存的廣告</h2>
-                <p className="text-gray-500">開始生成廣告文案並點擊「Save」來儲存您喜歡的內容</p>
+            <div className="min-h-full bg-[#0f1117] flex items-center justify-center">
+                <div className="text-center py-20">
+                    <Bookmark className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+                    <h2 className="text-2xl font-bold text-gray-300 mb-2">還沒有儲存的廣告</h2>
+                    <p className="text-gray-500">開始生成廣告文案並儲存您喜歡的內容</p>
+                </div>
             </div>
         );
     }
 
     return (
-        <div>
-            <div className="text-center py-12">
-                <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+        <div className="min-h-full bg-[#0f1117] overflow-y-auto">
+            <div className="text-center py-12 px-8">
+                <h2 className="text-3xl font-bold text-white sm:text-4xl">
                     我的已儲存廣告
                 </h2>
-                <p className="mt-4 text-lg text-gray-500 max-w-2xl mx-auto">
+                <p className="mt-4 text-lg text-gray-400 max-w-2xl mx-auto">
                     共 {savedAds.length} 則已儲存的廣告文案
                 </p>
             </div>
 
-            <div className="max-w-7xl mx-auto">
+            <div className="max-w-7xl mx-auto px-8 pb-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {savedAds.map((ad) => (
                         <SavedAdCard

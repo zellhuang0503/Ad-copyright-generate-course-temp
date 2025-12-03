@@ -8,7 +8,8 @@
       "Bash(git commit -m \"$(cat <<''EOF''\nFix TypeScript compilation errors and improve Firebase null safety\n\n- Fix all type import errors by using ''import type'' syntax for TypeScript''s verbatimModuleSyntax mode\n- Add null safety checks for Firebase auth and db instances in LoginButton component\n- Improve error handling in App.tsx for auth initialization\n- Add proper null checks in firestore.ts to prevent runtime errors\n- Update all component files to use proper type-only imports\n\nThis fixes build errors and ensures the app runs correctly in both demo mode and with Firebase configured.\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
       "Bash(git push)",
       "Bash(node test-gemini.js:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ],
     "deny": [],
     "ask": []
