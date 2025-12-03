@@ -51,7 +51,7 @@ export const AdCard: React.FC<AdCardProps> = ({ card, onSave, isSaving }) => {
             <div className="px-6 py-4 border-t border-gray-800 flex justify-between items-center">
                 {/* CTR */}
                 <div className="flex items-center gap-1.5">
-                    <span className="text-xs text-gray-500">Predicted CTR</span>
+                    <span className="text-xs text-gray-500">預測 CTR</span>
                     <span className={`text-lg font-bold ${getCTRColor(card.predicted_ctr)}`}>
                         {card.predicted_ctr}%
                     </span>
@@ -62,7 +62,7 @@ export const AdCard: React.FC<AdCardProps> = ({ card, onSave, isSaving }) => {
                     <button
                         onClick={handleCopy}
                         className="p-2 hover:bg-gray-800 rounded-lg transition-colors group"
-                        title="Copy to clipboard"
+                        title="複製到剪貼簿"
                     >
                         <Copy className="w-4 h-4 text-gray-500 group-hover:text-cyan-400 transition-colors" />
                     </button>
@@ -70,7 +70,7 @@ export const AdCard: React.FC<AdCardProps> = ({ card, onSave, isSaving }) => {
                         onClick={() => onSave(card)}
                         disabled={isSaving}
                         className="p-2 hover:bg-gray-800 rounded-lg transition-colors group disabled:opacity-50"
-                        title="Save to library"
+                        title="儲存到庫存"
                     >
                         <Bookmark className="w-4 h-4 text-gray-500 group-hover:text-cyan-400 transition-colors" />
                     </button>
@@ -79,7 +79,7 @@ export const AdCard: React.FC<AdCardProps> = ({ card, onSave, isSaving }) => {
 
             {copied && (
                 <div className="absolute top-2 right-2 bg-cyan-500 text-white px-3 py-1 rounded-lg text-xs font-medium">
-                    Copied!
+                    已複製！
                 </div>
             )}
         </div>

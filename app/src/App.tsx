@@ -102,8 +102,8 @@ function App() {
       ) : (
         <div className="flex items-center justify-center h-full">
           <div className="text-center">
-            <h2 className="text-2xl font-bold text-gray-300 mb-2">Analytics</h2>
-            <p className="text-gray-500">Coming soon...</p>
+            <h2 className="text-2xl font-bold text-gray-300 mb-2">數據分析</h2>
+            <p className="text-gray-500">即將推出...</p>
           </div>
         </div>
       )}

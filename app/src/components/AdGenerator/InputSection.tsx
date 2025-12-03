@@ -6,10 +6,10 @@ interface InputSectionProps {
     isGenerating: boolean;
 }
 
-const INDUSTRIES = ['E-commerce', 'Tech', 'Fashion', 'Food', 'Finance', 'Other'];
-const EMOTIONS = ['Optimistic', 'Urgent', 'Professional', 'Witty', 'Warm'];
+const INDUSTRIES = ['電商', '科技', '時尚', '食品', '金融', '其他'];
+const EMOTIONS = ['樂觀', '急迫', '專業', '幽默', '溫馨'];
 const PLATFORMS = ['Facebook', 'Instagram', 'Google Ads', 'LinkedIn'];
-const LENGTHS = ['Short', 'Medium', 'Long'];
+const LENGTHS = ['短', '中', '長'];
 
 export const InputSection: React.FC<InputSectionProps> = ({ onGenerate, isGenerating }) => {
     const [keyword, setKeyword] = React.useState('');
@@ -26,8 +26,8 @@ export const InputSection: React.FC<InputSectionProps> = ({ onGenerate, isGenera
     return (
         <div className="p-6 h-full flex flex-col">
             <div className="mb-8">
-                <h2 className="text-2xl font-bold text-white mb-2">Create New Ad Copy</h2>
-                <p className="text-sm text-gray-400">Enter your product details and let AI do the rest.</p>
+                <h2 className="text-2xl font-bold text-white mb-2">建立新廣告文案</h2>
+                <p className="text-sm text-gray-400">輸入產品詳情，讓 AI 為您完成其餘工作</p>
             </div>
 
             <form onSubmit={handleSubmit} className="flex-1 flex flex-col">
@@ -35,12 +35,12 @@ export const InputSection: React.FC<InputSectionProps> = ({ onGenerate, isGenera
                     {/* Product Description */}
                     <div>
                         <label className="block text-sm font-medium text-gray-300 mb-2">
-                            Product description or keywords
+                            產品描述或關鍵字
                         </label>
                         <textarea
                             value={keyword}
                             onChange={(e) => setKeyword(e.target.value)}
-                            placeholder="e.g., eco-friendly sneakers made from recycled materials"
+                            placeholder="例如：由回收材料製成的環保運動鞋"
                             required
                             rows={4}
                             className="w-full px-4 py-3 bg-[#0f1117] border border-gray-700 rounded-lg text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent resize-none"
@@ -49,12 +49,12 @@ export const InputSection: React.FC<InputSectionProps> = ({ onGenerate, isGenera
 
                     {/* Filters */}
                     <div>
-                        <h3 className="text-sm font-semibold text-white mb-4">Filters</h3>
+                        <h3 className="text-sm font-semibold text-white mb-4">篩選條件</h3>
                         <div className="space-y-4">
                             {/* Industry & Tone */}
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs font-medium text-gray-400 mb-2">Industry</label>
+                                    <label className="block text-xs font-medium text-gray-400 mb-2">產業</label>
                                     <select
                                         value={industry}
                                         onChange={(e) => setIndustry(e.target.value)}
@@ -67,7 +67,7 @@ export const InputSection: React.FC<InputSectionProps> = ({ onGenerate, isGenera
                                 </div>
 
                                 <div>
-                                    <label className="block text-xs font-medium text-gray-400 mb-2">Tone</label>
+                                    <label className="block text-xs font-medium text-gray-400 mb-2">語調</label>
                                     <select
                                         value={emotion}
                                         onChange={(e) => setEmotion(e.target.value)}
@@ -83,7 +83,7 @@ export const InputSection: React.FC<InputSectionProps> = ({ onGenerate, isGenera
                             {/* Platform & Length */}
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-xs font-medium text-gray-400 mb-2">Platform</label>
+                                    <label className="block text-xs font-medium text-gray-400 mb-2">平台</label>
                                     <select
                                         value={platform}
                                         onChange={(e) => setPlatform(e.target.value)}
@@ -96,7 +96,7 @@ export const InputSection: React.FC<InputSectionProps> = ({ onGenerate, isGenera
                                 </div>
 
                                 <div>
-                                    <label className="block text-xs font-medium text-gray-400 mb-2">Length</label>
+                                    <label className="block text-xs font-medium text-gray-400 mb-2">長度</label>
                                     <select
                                         value={length}
                                         onChange={(e) => setLength(e.target.value)}
@@ -128,12 +128,12 @@ export const InputSection: React.FC<InputSectionProps> = ({ onGenerate, isGenera
                                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                             </svg>
-                            Generating...
+                            生成中...
                         </>
                     ) : (
                         <>
                             <Sparkles className="w-5 h-5 mr-2" />
-                            Generate Copy
+                            生成文案
                         </>
                     )}
                 </button>

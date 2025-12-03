@@ -19,7 +19,7 @@ export const Header: React.FC<HeaderProps> = ({ user, currentPage, onNavigate })
                             <div className="bg-gradient-to-br from-cyan-500 to-blue-600 p-2 rounded-lg">
                                 <Sparkles className="w-5 h-5 text-white" />
                             </div>
-                            <h1 className="text-xl font-bold text-white">AdCopy AI</h1>
+                            <h1 className="text-xl font-bold text-white">廣告文案 AI</h1>
                         </div>
 
                         <nav className="flex items-center gap-8">
@@ -31,7 +31,7 @@ export const Header: React.FC<HeaderProps> = ({ user, currentPage, onNavigate })
                                         : 'text-gray-400 hover:text-gray-200'
                                 }`}
                             >
-                                Generator
+                                生成器
                             </button>
                             <button
                                 onClick={() => onNavigate('saved')}
@@ -41,7 +41,7 @@ export const Header: React.FC<HeaderProps> = ({ user, currentPage, onNavigate })
                                         : 'text-gray-400 hover:text-gray-200'
                                 }`}
                             >
-                                My Library
+                                我的庫存
                             </button>
                             <button
                                 onClick={() => onNavigate('analytics')}
@@ -51,7 +51,7 @@ export const Header: React.FC<HeaderProps> = ({ user, currentPage, onNavigate })
                                         : 'text-gray-400 hover:text-gray-200'
                                 }`}
                             >
-                                Analytics
+                                數據分析
                             </button>
                         </nav>
                     </div>

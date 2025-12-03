@@ -24,7 +24,7 @@ export const AdGrid: React.FC<AdGridProps> = ({ cards, onSave, isSaving, searchK
         return (
             <div className="flex items-center justify-center h-full">
                 <div className="text-center">
-                    <p className="text-gray-500 text-lg">Enter product details and generate ad copy to see results</p>
+                    <p className="text-gray-500 text-lg">輸入產品詳情並生成廣告文案以查看結果</p>
                 </div>
             </div>
         );
@@ -35,7 +35,7 @@ export const AdGrid: React.FC<AdGridProps> = ({ cards, onSave, isSaving, searchK
             <div className="flex items-center justify-center h-full">
                 <div className="text-center">
                     <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mb-4"></div>
-                    <p className="text-gray-400">Generating ad copies...</p>
+                    <p className="text-gray-400">正在生成廣告文案...</p>
                 </div>
             </div>
         );
@@ -47,19 +47,19 @@ export const AdGrid: React.FC<AdGridProps> = ({ cards, onSave, isSaving, searchK
             <div className="flex justify-between items-center mb-8">
                 <div>
                     <p className="text-gray-400">
-                        Showing <span className="text-white font-semibold">{cards.length}</span> results for{' '}
+                        顯示 <span className="text-white font-semibold">{cards.length}</span> 筆結果：{' '}
                         <span className="text-cyan-400 italic">'{searchKeyword}'</span>
                     </p>
                 </div>
                 <div className="flex items-center gap-2">
-                    <span className="text-sm text-gray-400">Sort by:</span>
+                    <span className="text-sm text-gray-400">排序：</span>
                     <select
                         value={sortBy}
                         onChange={(e) => setSortBy(e.target.value as 'highest' | 'lowest')}
                         className="px-3 py-1.5 bg-[#1a1d29] border border-gray-700 rounded-lg text-sm text-gray-300 focus:outline-none focus:ring-2 focus:ring-cyan-500"
                     >
-                        <option value="highest">Highest CTR</option>
-                        <option value="lowest">Lowest CTR</option>
+                        <option value="highest">最高 CTR</option>
+                        <option value="lowest">最低 CTR</option>
                     </select>
                 </div>
             </div>
